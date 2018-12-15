@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>wine</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Final_Project</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11792,7 +11792,38 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Set-Up-Environment">Set Up Environment<a class="anchor-link" href="#Set-Up-Environment">&#182;</a></h1>
+<p>Have you ever been in a situation that you want to buy a bottle of wine for dinner or party, but you totally have no idea how to choose wine, especially facing the endless choices on the shelves? Most people are not familiar with wine. We may know their preference of flavors - sweet, fruity or sour. But that only after we taste the wine then we can say if we like or dislike it. So how can we choose a bottle of good wine?</p>
+<p>Here, we will analyze a wine review dataset that contains more than 130k records including all information in the label on the bottle. Based on those information and visualizeing the relations between different features and rating of wine, we can learn some general ideas about the charateristic of good wine and find out what kind of wine is the most popular and worth to buy, especially high quality with low price. At last, we will use a machine learning model to help predict the rating of a bottle of wine based on the information on its label so that we can select a bottle of good wine based on the predict result based on the prediction. By using the prediction model, you will become a wine expert in no time and can pair a bottle of good wine with your feast.</p>
+<p>Let's get started!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.-Data-Preprocessing">2. Data Preprocessing<a class="anchor-link" href="#2.-Data-Preprocessing">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.1-Set-Up-Environment">2.1 Set Up Environment<a class="anchor-link" href="#2.1-Set-Up-Environment">&#182;</a></h3><p>Following are the libraries that help analyze  data.</p>
+<ul>
+<li>matplotlib: Plot graphs</li>
+<li><p>numpy: scientific computing package, especially linear algebra</p>
+</li>
+<li><p>pandas: used for data processing</p>
+</li>
+<li><p>seaborn: Plot interactive graphs</p>
+</li>
+<li><p>sklearn: use for building machine learning model</p>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -11807,7 +11838,9 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">r2_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
 </pre></div>
 
@@ -11820,14 +11853,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Robo-Wine-Connoisseur">Robo Wine Connoisseur<a class="anchor-link" href="#Robo-Wine-Connoisseur">&#182;</a></h1><p>In which two college students attempt to put sommeliers out of a job.</p>
+<h3 id="2.2-Robo-Wine-Connoisseur">2.2 Robo Wine Connoisseur<a class="anchor-link" href="#2.2-Robo-Wine-Connoisseur">&#182;</a></h3><p>In which two college students attempt to put sommeliers out of a job.</p>
+<h3 id="Load-Data">Load Data<a class="anchor-link" href="#Load-Data">&#182;</a></h3><p>This wine review dataset is shared in Kaggle: <a href="https://www.kaggle.com/zynicide/wine-reviews">https://www.kaggle.com/zynicide/wine-reviews</a></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="k">import</span> <span class="n">drive</span>
@@ -11866,7 +11900,19 @@ Mounted at /content/gdrive
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Exploratory-Data-Analysis">Exploratory Data Analysis<a class="anchor-link" href="#Exploratory-Data-Analysis">&#182;</a></h1>
+<h3 id="Notes:">Notes:<a class="anchor-link" href="#Notes:">&#182;</a></h3><p>Google Colab is a great platform to work python notebook for data science project. It is easy to use without any annoying setup and it has a lot of useful features including powerful collaboration feature.</p>
+<p>Want to learn more about Google Colab?
+<a href="https://research.google.com/colaboratory/faq.html">https://research.google.com/colaboratory/faq.html</a></p>
+<p><a href="https://medium.com/dair-ai/primer-for-learning-google-colab-bb4cabca5dd6">https://medium.com/dair-ai/primer-for-learning-google-colab-bb4cabca5dd6</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.3-Data-Cleaning">2.3 Data Cleaning<a class="anchor-link" href="#2.3-Data-Cleaning">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11875,6 +11921,7 @@ Mounted at /content/gdrive
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here are the first five rows of the untouched dataset.</p>
+<p>Most of the features are included in the wine bottle label. From the label, you will know the location where the grapes grew, the variety of grape, the winery name,  and a description of the wine. Those all are useful information to help choose wine.</p>
 <p>Right off the bat, we're going to eliminate the Taster Name and Twitter Handle columns, as we want to predict the quality of a wine based on production factors, not reviewers. And one would hope a taster's Twitter handle has no bearing on their opinion of a wine.</p>
 <p>We are also going to drop the Description column. Although it would have been fun to run these through a natural language processor and see common characteristics of the highest scoring wines, these may be biased by the taster's impression of the wine.</p>
 <p>Finally, we'll drop the Designation and Region 2 columns, which specify the exact vineyard and subregion in which the grapes are grown, respectively. These are too specific for our purposes, and, from the dataset description, they often have missing values. The rest of the columns may end up being useful to us, so we'll keep them for now.</p>
@@ -11884,7 +11931,7 @@ Mounted at /content/gdrive
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import data</span>
@@ -11902,7 +11949,7 @@ Mounted at /content/gdrive
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[0]:</div>
+<div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -12057,7 +12104,7 @@ Mounted at /content/gdrive
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Extract vintage and drop inaccurate rows</span>
@@ -12079,7 +12126,7 @@ Mounted at /content/gdrive
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[0]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -12190,7 +12237,7 @@ Mounted at /content/gdrive
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop missing values</span>
@@ -12208,7 +12255,7 @@ Mounted at /content/gdrive
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[0]:</div>
+<div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -12312,6 +12359,14 @@ Mounted at /content/gdrive
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-Exploratory-Data-Analysis">3. Exploratory Data Analysis<a class="anchor-link" href="#3.-Exploratory-Data-Analysis">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's try to get a handle on what our data looks like visually, since ~130k wine reviews is not very easily conceptualized. We'll start by plotting the distributions of the two (arguably) most important variables--points and price. We'll also take a look at how they correlate with each other. We expect to get what we pay for, after all!</p>
 
 </div>
@@ -12319,7 +12374,7 @@ Mounted at /content/gdrive
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot points histogram</span>
@@ -13720,13 +13775,22 @@ RMTgNOxFREQMTsNeRETE4DTsRUREDE7DXkRExOB+A3KZTHzoLvGPAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-Most-Popular-Series">The Most Popular Series<a class="anchor-link" href="#The-Most-Popular-Series">&#182;</a></h1>
+<h3 id="3.1-The-Most-Popular-Series">3.1 The Most Popular Series<a class="anchor-link" href="#3.1-The-Most-Popular-Series">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before diving into the ranking of all the popular wines, let's take a look at the  total number of different properties. These wines are come from 7 different countries, 62 differents provinces and 1194 different regions. I don't even know that there are more than 500 types of grapes in the world. And I can't  wait to see where, which type of grape and which company can produce the best and the most popular wine!</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Have a general idea about how the data looks like</span>
@@ -13767,13 +13831,22 @@ RMTgNOxFREQMTsNeRETE4DTsRUREDE7DXkRExOB+A3KZTHzoLvGPAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-most-popular-wine-by-country-of-origin">The most popular wine by country of origin<a class="anchor-link" href="#The-most-popular-wine-by-country-of-origin">&#182;</a></h2>
+<h3 id="3.2-The-most-popular-wine-by-country-of-origin">3.2 The most popular wine by country of origin<a class="anchor-link" href="#3.2-The-most-popular-wine-by-country-of-origin">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, we group the dataset based on the country. And then it's easy to count the number of reviews of wines which are from the same country. Then we plot the the count in descending order. And we can see that most of the popular wines are from  the U.S.! And France and Italy vying take the second and third place.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Group data by country and count occurrences</span>
@@ -14055,13 +14128,13 @@ xCAU+iIiIgah0BcRETEIhb6IiIhBKPRFREQMQqEvIiJiEP8HFkhB7WBBWucAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-most-popular-wine-by-province-of-origin">The most popular wine by province of origin<a class="anchor-link" href="#The-most-popular-wine-by-province-of-origin">&#182;</a></h2>
+<h3 id="3.3-The-most-popular-wine-by-province-of-origin">3.3 The most popular wine by province of origin<a class="anchor-link" href="#3.3-The-most-popular-wine-by-province-of-origin">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">province</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;province&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -14447,7 +14520,7 @@ JCAUQgghhBBCiC5KAkIhhBBCCCGE6KIkIBRCCCGEEEKILup/oL9c/+EeIzEAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Seems like the majority of them are from the United States, with France and Italy vying for second and third place.</p>
+<p>Since lots of popular wines are from the United States, I would not suprise to see lots of state of the U.S. in this top list. Indeed, when I am shopping for wine, most of the wine I see are from California!!!</p>
 
 </div>
 </div>
@@ -14456,13 +14529,13 @@ JCAUQgghhBBCiC5KAkIhhBBCCCGE6KIkIBRCCCGEEEKILup/oL9c/+EeIzEAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Most-Popular-Variety">The Most Popular Variety<a class="anchor-link" href="#The-Most-Popular-Variety">&#182;</a></h2>
+<h3 id="3.4-The-Most-Popular-Variety">3.4 The Most Popular Variety<a class="anchor-link" href="#3.4-The-Most-Popular-Variety">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The Most Popular Variety</span>
@@ -14766,14 +14839,14 @@ ETEUhRMRERExFIUTERERMRSFExERETGU/wOL0R/MP5WZagAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We've shown that there are 500 hundred different types of variety. The visualization of all types of variety is unrealistic. So now we will present the top 10 popular types of variety</p>
+<p>We've shown that there are 500 hundred different types of grapes. And lots of grapes are not common to people and have few reviews. So they cannot provide any useful information. The visualization of all types of variety is unrealistic. So now we will present the top 10 popular types of variety. And those are also the common types we would see in the supermarket or liquor.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">xpose</span> <span class="o">=</span> <span class="n">xpose</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
@@ -15129,8 +15202,9 @@ ERERhSgGhERERERERCGKASEREREREVGI+g95BKypEg3imQAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Variety is the type of grapes used for wine. Based on the graph above, people like the taste of pinot noir the best. So what is pinot noir and why do people like it?  Joel Fleischman once described that " pinot noir is the most romantic of wines, with so voluptuous a perfume, so sweet an edge, and so powerful a punch that, like falling in love, they make the blood run hot and the soul wax embarrassingly poetic." And clicking into the following link, you will find more fun fact about pinot noir.
-<a href="https://www.vivino.com/wine-news/10-unmissable-facts-about-pinot-noir-grapes-wines">https://www.vivino.com/wine-news/10-unmissable-facts-about-pinot-noir-grapes-wines</a></p>
+<p>Variety is the type of grapes used for wine.</p>
+<p>Based on the graph above, people like the taste of pinot noir the best. So what is pinot noir and why do people like it?  Joel Fleischman once described that " pinot noir is the most romantic of wines, with so voluptuous a perfume, so sweet an edge, and so powerful a punch that, like falling in love, they make the blood run hot and the soul wax embarrassingly poetic." And clicking into the following link, you will find more fun fact about pinot noir.</p>
+<p><a href="https://www.vivino.com/wine-news/10-unmissable-facts-about-pinot-noir-grapes-wines">https://www.vivino.com/wine-news/10-unmissable-facts-about-pinot-noir-grapes-wines</a></p>
 
 </div>
 </div>
@@ -15139,13 +15213,13 @@ ERERhSgGhERERERERCGKASEREREREVGI+g95BKypEg3imQAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Most-Popular-Winery">The Most Popular Winery<a class="anchor-link" href="#The-Most-Popular-Winery">&#182;</a></h2>
+<h3 id="3.5-The-Most-Popular-Winery">3.5 The Most Popular Winery<a class="anchor-link" href="#3.5-The-Most-Popular-Winery">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The most popular winery</span>
@@ -15160,8 +15234,8 @@ ERERhSgGhERERERERCGKASEREREREVGI+g95BKypEg3imQAAAABJRU5ErkJggg==
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xpose</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">ypose</span><span class="p">)))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xpose</span><span class="p">)),</span> <span class="n">xpose</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Variety of Wine&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Variety&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Winery of Wine&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Winery&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -15184,279 +15258,277 @@ ERERhSgGhERERERERCGKASEREREREVGI+g95BKypEg3imQAAAABJRU5ErkJggg==
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA3kAAAFMCAYAAAB22HXiAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4yLCBo
-dHRwOi8vbWF0cGxvdGxpYi5vcmcvNQv5yAAAIABJREFUeJzt3Xl8THf////nZBORWEJyqV1Va1db
-tGgtoYnUVmuQ0FKt60LL1Vpbvay1c9lddlmsqRa17y0fUppWVemS1hKKILZYIsn8/vDLfEUmySQy
-wvG4325uN3NyzpnXvOcs8zzv95wxmc1mswAAAAAAhuCQ2wUAAAAAAHIOIQ8AAAAADISQBwAAAAAG
-QsgDAAAAAAMh5AEAAACAgRDyAAAAAMBACHkAgCdO586dFR4enmb6qlWr1Llz5yyta/v27Ro6dGim
-823atEk3b97M0rrTc+TIETVs2FC9e/dONX3MmDH67LPPUk3r3r17mmlBQUFavXq1pkyZohUrVuRI
-TQCAZwchDwDwxGnbtq02bNiQZvq6devUtm3bLK2rWbNmGjduXKbzzZgxI8dC3r59++Tj46N58+al
-ml6/fn0dPHjQ8jghIUEnT57Ud999Z5l2584d/fjjj6pXr54++uijLIdaAAAIeQCAJ07z5s114sQJ
-nTlzxjItJiZGx48fV/PmzSVJa9asUfPmzfXGG2+oa9euOnv2rCRp7dq16tu3r7p3766JEydq7dq1
-evvttyVJ169f18CBA+Xn5ydfX1998cUXkqShQ4fqr7/+UnBwsGbNmqUWLVqkqqdt27basWNHmjpD
-QkIUEBAgf39//fOf/9SVK1e0ZcsWhYSEaPfu3erVq1eq+X18fHTu3DmdO3dOkhQVFaXKlSvLZDLp
-woULkqTvv/9exYoVU4kSJTRkyBDNmTNHktSkSROtXLlS7du3V4MGDTR+/HjLenfs2KGWLVvK19dX
-PXr00JUrV7Ld9gCApx8hDwDwxHF3d1fTpk21bt06y7QNGzbI19dX7u7uunz5skaNGqUlS5Zo27Zt
-KlWqlCUMSdL+/fs1cuRIDRo0KNV6x48fLwcHB23evFlr1qzRzJkz9dtvv1l6+kJDQ/X+++8rNjZW
-J06ckCSdO3dOp0+f1uuvv55qXT/++KMWLVqk0NBQbdmyRcWKFdOUKVPk7++voKAg+fn5acGCBamW
-yZcvn15++WVLb97BgwdVo0YN1apVS5GRkZZp9erVs9ouhw4d0qpVq/TFF18oLCxM58+f15kzZzRo
-0CBNmTJFO3fuVN26dTVixIhstDoAwCgIeQCAJ9LDQzbXr19vGapZuHBhff/99ypatKgkqXbt2ql6
-/cqUKaMyZcqkWefu3bvVrVs3OTg4yNPTU82aNdO2bdtSzePs7Cw/Pz9t3LhR0v1eMl9fX7m4uKSa
-b8+ePfLz81PhwoUlSR06dND+/fszfV316tXTgQMHJEmRkZGqW7eu6tSpkyrk1a9f3+qyLVu2lKOj
-o/7xj3+ocOHC+vvvv/XNN9/Ix8dHL774oiQpMDBQu3btUlJSUqa1AACMySm3CwAAwJpXXnlFd+/e
-1ZEjR+Tg4KDbt2/rlVdekSQlJSVpxowZljATHx+vsmXLWpYtUKCA1XXeuHFD/fv3l6OjoyTp7t27
-8vf3TzPfm2++qaFDh+qjjz7Sjh071LNnzzTzXLlyRd7e3pbH+fPn1+XLlzN9XfXr19eKFSt069Yt
-/fnnn6pcubK8vb01c+ZM3bx5UydOnFDdunWtLuvu7m75v6Ojo5KSknTjxg0dPnw41etwd3fX1atX
-LQEUAPBsIeQBAJ5IDg4Oat26tb7++ms5OjqqdevWcnC4PwBl06ZN2rVrl8LCwuTp6anVq1dbvVHL
-w7y9vTV79mxLr1d66tSpo8TERO3evVu///671eGTRYoU0dWrVy2Pr169qiJFimRaQ9WqVXX37l1t
-3LhR1atXl6Ojo4oWLSoHBwdt2bJFlSpVUv78+TNdz4OvqV69epoxY4bNywAAjI3hmgCAJ1bbtm21
-a9cu7dy5M9VdNS9fvqzixYvL09NTcXFx2rx5s+Lj4zNdX8rNSyQpMTFRn3/+uY4dOyZJcnJy0vXr
-1yXdD5gBAQEaPXq0mjRpImdn5zTratSokbZv3664uDhJ0sqVK9WwYcNMa3BwcNArr7yikJCQVD12
-derUUWhoaLrfx0tPgwYNdPjwYctw1Z9++kljxozJ0joAAMZCyAMAPLFKly4tb29vFSlSRKVLl7ZM
-b9Giha5evapmzZrpo48+Uv/+/XX+/PlUd5y0pn///rpx44b8/Pz05ptvKjk5WS+99JIkyd/fX4GB
-gdq0aZOk+0M2z549q4CAAKvrqlatmt577z117dpV/v7+unHjhgYMGGDT66pXr55+++03+fj4WKb5
-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
+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
-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
+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
-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
-lN3qi4mJ0erVqxURESFnZ2edPHlSn376qerVq5djz5GUlKR+/fpp+PDh8vHxkdls1pgxYzR79mwN
-GDAgS+taunSpXnnlFbm4uORYfSnrrVatmt59911J0pw5c7RhwwZ17dpV8+fPl7+/f5bX6eXlpZ07
-d+q9996TJJnNZv3888+Wv6dMfxp98sknOb7OgwcP6tatW6pWrVqOr9sWObmdPoqs7PMxMTEaN26c
-lixZoqJFiyo+Pl5vv/22ypQpo/r162fr+Y8dO6b9+/erQYMGWVru119/1YwZM7R06dIc3z+z4vnn
-n1doaKjlYsqzJr1juq0XW9JTsWJFVaxYMYeqtI+Uffizzz5T7dq1Jd2/mDZ27Ngc/RC/YMEC5cuX
-L8fWl5MeVxs8qrJlyyo0NFR6k5trAAAcZ0lEQVSSdPr0afXu3VtTp05VhQoVHmsd0dHRKl26tD76
-6KPH+rywH0JeLps0aZJ+/PFHJSUlqVu3bpberZkzZypPnjzy9vbW4MGDNWfOHLm4uOi5556Tk5OT
-Zs6cKWdnZxUsWFDTpk3ToUOHFBISops3b+qTTz5RdHS0QkJC5OjoqGrVqmno0KE6evSoxowZIxcX
-F+XJk0f//e9/9ddff6WZdv36dUsITUxM1MSJE1WyZMlHfq1169bVrl271K5dO0VFRalVq1b6/vvv
-Jd0/uJQoUUJubm5q0qSJNmzYkGb5mJgYffDBB1q7dq3Wr1+vsLAwOTg4qHz58ho9erTWrl2rQ4cO
-KS4uTr///rsGDBigr7/+WtHR0Zo8ebIqVaqkgQMHKjY2VgkJCerXr59ef/11y/pv3rypu3fv6t69
-e3J2dlaZMmUsHwb++OMPjRo1SiaTSfny5dP48eMty+3du1dff/21Jk2aJEn69NNP1bhxYxUoUEBT
-p06Vk5OTnnvuOY0ePVrLli3T1atXFRYWpmHDhql37966cOGCvvnmG0uAnz59uvbv36+CBQtq3rx5
-unjxogYOHGh5PyZMmKCoqCj9+OOP6tWrl5YuXao1a9Zow4YNcnBwUNOmTdWjRw+dP38+zXKlSpVS
-3bp1FRkZKUmWHrsHexCvX7+ue/fuWR7/61//kiQtXLhQv/76q/r27atZs2Zp2rRpOnz4sJKSkhQU
-FKQWLVqk+967uLgoX758+uOPP/TCCy/o+++/V7ly5XT27FlJ9y+C+Pn5qUGDBhoyZIjOnj2rPHny
-aOLEiZKk+Ph4ffzxx/r111/l5+envn37ZviePOjChQv65JNPdO/ePTk6OmrMmDEqVqxYurVK9z+k
-jxo1Sg4ODpZ1//rrrwoPD7dcwU9px+DgYA0fPlyJiYkaOXKkXFxc5OLiomnTpil//vwZPo8kjRs3
-Tj/99JPu3r2rzp07y9fXV7NmzbJsNyVKlMhSLeXLl5ekR+r13r9/v55//nn5+PhIkkwmkwYOHCgH
-h/uDP5YtW6ZNmzZJknx9fVOF9AcvZMXHx6tly5batWuXmjZtqo4dO2rLli0qXbq0KleubPl/ygeu
-3bt3a9myZbpy5YrGjRunAgUKZLjPP2jlypUKCgpS0aJFJUn58uXT4sWL5eHhobVr1+qbb77RxYsX
-NW3aNO3YsSPN/vLLL7+kef9GjRqlmzdvqkyZMurUqZNNbXflyhUNHjxY06ZNk6enZ7rbX7NmzdS0
-aVNFRUXJw8ND8+fP18WLF/Xhhx/KxcVFL730kmWdixcv1tatW5WcnKyGDRtmaRTIg06cOKGRI0fK
-yclJDg4Omj59ugoWLKgFCxZo69atcnBw0L///W+VKFHCsszevXsVFham2bNna9CgQWmOn9a2hSFD
-hsjb21vHjh3TuXPnNHnyZFWuXDlbNT+K9I7pKfts/vz5rba3tWPkd999pzNnzigmJkb9+vXTihUr
-nujevP3796t8+fKWcCNJ7777rlLutWdtW7h586YGDhwoNzc3de3aVZs3b05zXvP19c30ua1trzNn
-zkzVfkuXLtWtW7c0ePBgnTt3TosXL5aTk5OqVKliuShu7zZIb9/ctGmTli5dKkdHR1WuXFmffvpp
-qvqXLl2qQYMG6dy5c6pRo4Y2b96sb775xuo5KW/evBl+7nhYqVKl1Lt3by1fvlzvvfee5fgnSW3b
-trVscw8fKytXrmx1X0zvNVrbxidMmKBz585pypQpjy3oRUdHa/jw4Vq+fLkkae7cucqXL5+2b9+u
-evXq6eDBg4qLi9O8efN05swZy+faX375Rb1799a3336r48ePa9CgQWratGmm215oaKgcHR0fy2t7
-EjBcMxcdPHhQly9fVnh4uJYuXarZs2crISFBYWFh+uSTTxQeHi4/Pz85OzurVatWevvtt9WoUSNd
-v35d06ZNU1hYmPLkyWMZUvj7779r8eLFKlmypKZPn66lS5dqxYoVio6O1uHDh/XFF18oODhYoaGh
-6tGjh2JjY61Oi42NVb9+/RQaGqo2bdpo5cqVOfJ669SpYwl1hw8fVr169ZSUlKQ7d+7o0KFDWRqq
-ePv2bS1cuFArV67Un3/+qV9//VXS/SFmc+fO1fvvv6///e9/mj17tt577z19/fXX+u233xQXF6fw
-8HAtWrRI165dS7XOChUqqFq1avL19dWQIUO0adMmJSYmSpJGjx6tUaNGadmyZapfv36qYWANGjSw
-fEhPTk5WVFSUXnvtNY0ZM0Zz5sxRSEiIChcurC1btujcuXO6c+eOJk+erJEjR2rKlCmaOHGiRo0a
-pbVr1+ratWvy8/PT6tWrde3aNf3666+6ePGi+vTpo9DQULVr107Lly9XmzZt5OXlpQULFujChQva
-smWLVqxYofDwcG3btk3nzp2zupwtunbtqq+//lpvvfWWpkyZohMnTki6f3J0d3fXrFmzdPjwYZ09
-e1bh4eEKCQnR3LlzdefOnQzX6+fnZwnvmzZt0htvvJFmnq+++kpFihTRypUr1bFjR+3cuVPS/RPB
-6NGjtXLlSkvwzug9edD06dPVo0cPLVu2TN27d9ecOXMybYOxY8dq0KBBCg0NVZ06dRQSEpLpMmvX
-rlXnzp0VGhqqd999V7GxsZkuc/fuXRUvXlwrVqzQ8uXLNX36dHl6euqtt95St27d5Ovrm+Vaypcv
-/8jDmv/88880PRWurq5ycXHRmTNn9OWXXyo8PFzh4eHavHlzqmHY6UlOTlalSpX0xRdfKCoqSsWL
-F1dERIS+//57y3Bg6X5P8oABAzRv3rxUy6e3z2dUs4eHh+X/f//9t8LDw5WQkGB1f7H2/vXs2VMB
-AQE2B7zExER98MEHat68ucqVKycp/e3vzJkzat26tVatWqXr16/r119/VUhIiAICAhQaGipvb+9U
-616+fLlWr16ttWvX6ubNmzbV87DLly9r+PDhCg0NVc2aNbVhwwadPHlSW7du1erVqzVp0qRUF9hO
-nTqluXPnaurUqfr999/THD8z2hYSEhK0aNEidevWTV999VW26n1UGR3TJWXY3tbcu3dPy5cvt1zs
-eJL9+eefqYKrJDk4OFg+4FrbFqT7Q1EnT56shg0bWj2v2cra9vpg+/32229atGiRypYtq7lz5yok
-JERhYWH6+++/LZ8T7N0G1vbN+Ph4TZs2TUuWLNGKFSsUExOjgwcPpqp/3759unv3rlavXq1XXnlF
-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
-mezKrA2s7Zu//PJLmm06T548qeo3m82W7fvB45S1c5KkDD93WPPzzz+rYsWKmZ5zUphMpnSPy7ac
-/6x9DnicWrRooX79+ilv3rypthdrx5D0PuNJtm97z5Inf8yBgVWvXl27d+9WcnKybt++bQk5s2bN
-Up48eRQYGCg/Pz9FR0fLwcHBcmX95s2beu6553Tt2jV99913aXbQ559/Xn/++adu3bols9msw4cP
-q0qVKgoJCdGNGzfUunVrBQcH6/jx41anxcXFqWTJkkpOTtbOnTtz9ABQt25drVq1Si+//LIkqVat
-WtqzZ4+8vLzk6upq0zpSrnJ5eXnp77//1s8//2xTjceOHdOGDRtUu3ZtjRgxQtHR0an+HhERoeHD
-h1sOJjdu3FBycrIKFy6sChUq6JtvvpEkbdy4Mc3drypWrKgLFy7op59+Up06dVSgQAFJsgy5CA0N
-1YkTJ1SlShXdvn1bu3btknT/wDVp0qQMryDHxcWpVKlSMpvNqd6PlN6WypUrKzIyUrdv37bcIOPO
-nTsZLnf79m3dvn3bcoXyQe+8806qYH/+/HlLD11K21SrVs2y7d69ezfN96PS4+/vr/nz51sdqind
-721JGRqze/fuNEP2HpTZe5KievXq2rFjh6T7NzCy9n3Ph5UvX95yt89Dhw6pSpUqcnd3twzLOXHi
-RJq7FYaFhenq1atq1aqVunfvbrVtHxYXF6eiRYvK2dlZO3fuVFJSkhISEmQymSwn9OzU8qjq16+v
-s2fPWrbT5ORkTZo0SZs2bVLFihX1448/KjExUYmJiTpy5EiqYZIP1pbVYVcp8//44496/vnnLdNt
-2ec7d+6s8PBwnTx5UpIs3y96uJcxvf3F2vv3cE+Arfz9/VWyZEnNnj07S9tf2bJlLTckSvm+TFxc
-nDw9PZUvXz4dO3ZMZ8+etXq8K1mypEJDQxUaGqoqVaqoQ4cOunDhguLi4izfub569apKlSqlhIQE
-7d27V/fu3VPlypUVFRWlxMREXbp0SX369LHUMmLECJ0+fVr79u2zevzMbFvIbRkd0yXr7S1lfox8
-Grzyyis6f/68ZR+W7p8DU/Yla9vCwx4+r9nC1u01RdmyZRUdHa3Lly9LkmbMmKELFy5k8dVal1kb
-WNs3y5Qpo1OnTlmG+X333XeqUqVKqvWWKlXKst3s27fP8tnM2jkps88dDzt9+rSWLl2qt99+W+7u
-7rp8+bLMZrNiY2NT3RH24WNlevtiesefJ2kb9/T0VIECBbRu3To1a9Ys2+vJ6rb3LKAnLxfVqVNH
-NWrUUKdOnWQ2mxUUFCTpftd09+7dlT9/fhUsWFC9evWSs7Ozhg0bpkKFCqlz584KDAxU2bJl1atX
-L82ZMyfVGGp3d3f9+9//Vo8ePWQymVS3bl29/PLLunr1qvr16ycPDw/lyZNH48eP108//ZRmWrFi
-xTRy5EgVL15cXbt21fDhw3XgwAHLMLpHfc19+/ZV7969Jd0fPnT16tUMb9rxsEKFCql+/fpq166d
-KlSooHfffVfjxo1T9+7dM1yuRIkSmjp1qlatWiVHR0fL8JAUbdu21Z9//qkOHTrIzc1NiYmJ+vTT
-T+Xq6qpPPvlEw4cP14IFC5QnTx5NmTIlzfdi6tevr/j4eMvVt7Fjx2ro0KGWXr1OnTrphx9+UO3a
-tbV69WqdOXNG58+fl4+Pj9q1a6exY8darbtTp04aPXq0ihcvbrlhwL59++Tj46MuXbooJCRE3bp1
-U9euXeXo6KimTZvK1dU13eU6d+6sjh07qly5claHcI4bN06jRo3S7Nmz5ejoqPz582vEiBGS7p/0
-27dvr4iICNWtW9ey7Xbp0kXS/VvYx8TEWB4/rGnTppo8eXK6dywNCAjQ//3f/1mGW0yYMMHyof1h
-trwnktS3b18NGzZMGzdulMlkSnMV9a+//kp16++BAwfq008/1ciRI2UymVSgQAGNGzdObm5ucnNz
-U2BgoGrUqKHixYunWk+pUqX04YcfysPDQy4uLlav1oaEhGjr1q2SZFnvggULFBQUpKZNm6pRo0Ya
-MWKE3nzzTQ0ePFienp7ZquVROTg4aNGiRfrss880a9Ysubi4qF69eurbt68cHBzUqVMnBQUFyWw2
-q0OHDqme/9VXX9XcuXMVHByshg0bprkanZnevXvr77//ttx0R0p/n//qq68sV2iLFSumyZMnW24Q
-YzKZ1L17d9WrVy9Vr0CxYsWs7i/W3r8rV65o8uTJKlq0aJrjRWY+/fRTtWvXTn369NFXX32V7vb3
-oG7duql///7avn27XnzxRUn397l8+fIpMDBQtWrVUmBgoEaOHKlatWpl+PyffPKJevfuLUdHR8uN
-tIKCgtSnTx+VLFlSwcHBGjVqlAICAtS6dWvL+/ng3VNNJpPGjh2r3r17a9GiRVq/fn2q42eJEiUy
-3BZyW3rH9JReI2vtLSnTY+TTwGQyaeHChZZjubOzs9zc3DR37lzLkDZr28LDHj6vZSar22vevHk1
-bNgw9erVSy4uLqpUqVK2R108LLM2sHZucHNz06BBg/Tuu+/KwcFBtWrVUu3atVNdRGzcuLG++OIL
-de7cWT4+PipYsKAk6+ckk8mU4ecO6f+dgxISEpSUlKTPPvvMcnOwevXqWY57D19AefBYmd6+mN75
-Lze3cWvnXD8/P+3evVvu7u7ZXm92j5VGZjLn1jgKwEDMZrPeeecdjRw5UqVLl87tcgAAeCSc16y7
-evWqIiMj5efnpwsXLqh79+7Z/g1Z3Dd48GC99dZbmX7FAVnDcE3gEcXExKhdu3aqV68eJ0IAwFOP
-81r68uXLp82bN6tjx47q06ePhg4dmtslPbXu3r2rjh07yt3dnYBnB/TkAQAAAICB0JMHAAAAAAZC
-yAMAAAAAAyHkAQAAAICBEPIAAM+Url27Wn47KsWdO3dUp04d/f333zatIzg42PL7WOlZt25dtmsE
-AOBREPIAAM+U9u3b66uvvko1bfv27apevbqee+45m9YRGhoqR0fHdP9+4cIFrVy58pHqBAAgu7i7
-JgDgmXL79m01btxYmzdvVqFChSRJPXv2VIcOHeTo6KiFCxfKxcVFSUlJlh8aDg4OVoUKFXT8+HEt
-W7ZMlSpV0rFjx5ScnKxRo0bp1KlTio+PV4sWLdSjRw8FBQXp+PHj8vX11enTpzVgwADVrVtXkvTu
-u+9afiweAAB7oCcPAPBMyZs3r9544w1t3LhRknTx4kWdOHFCTZo00fXr1zVt2jSFhoaqYcOGCg8P
-tyzn5uamsLCwVD14ISEh8vb2VmhoqNasWaONGzfqxIkT6tevn1588UVNnDhRgYGB+vLLLyXd/yHl
-v/76S6+99trjfdEAgGeKU24XAADA49a+fXuNHDlSQUFBWr9+vVq0aCEXFxcVKVJEgwcPltlsVmxs
-rGrUqGFZpmbNmmnWExkZqfPnz+vQoUOSpISEBJ0+fVoFChSwzNO8eXP997//VXx8vLZv366WLVvK
-wYFrrAAA+yHkAQCeOdWqVVNCQoKio6O1bt06TZ06Vffu3VP//v315ZdfqkyZMgoLC9PPP/9sWcbZ
-2TnNelxcXNSnTx/5+/unmh4ZGWn5f548edSsWTNt375dW7du1X/+8x/7vTAAAMRwTQDAM6pdu3aa
-M2eO8ubNq/Llyys+Pl4ODg4qXry47t69q507dyohISHDddSqVUubN2+WJCUnJ2vcuHG6evWqHBwc
-lJiYaJmvU6dOWrFihcxms0qWLGnX1wUAACEPAPBMatWqlbZu3ar27dtLkgoWLKgWLVqoffv26t+/
-v3r27KmDBw9aQpw1Xbt2lZubmzp16qSOHTvKw8NDBQsW1AsvvKDLly/rnXfekSS98MILSkpKUtu2
-bR/LawMAPNu4uyYAAHYWExOj9957T+vWrbM67BMAgJzEd/IAALCjefPmadOmTRo9ejQBDwDwWNCT
-BwAAAAAGwnfyAAAAAMBACHkAAAAAYCCEPAAAAAAwEEIeAAAAABgIIQ8AAAAADISQBwAAAAAG8v8B
-WMYIsJOfb58AAAAASUVORK5CYII=
+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
+pf3jxIkTCgwMVPny5Z+4LzwqPfaL54W1Y7q1ffZJ7f2ow4cPa/LkyRlRbro6deqUunfvrlatWqlV
+q1b65JNPdOXKlXRbv7e3t9q3b6/AwEDLv/SScN5/2m0xo9vgaUVFRalSpUoKDAxUQECAOnXqpK1b
+t6a4zNMea5Nz5coVNWrUSBMmTEj3dScw0rHlRfBc3HjlZTBgwABJDw9cx48fV//+/VO1/NatW3X/
+/n2VL18+I8p7JqpXr64dO3aocOHCunLlim7fvq0dO3aobt26kqS9e/dq3LhxqlOnjtXl3d3dNXz4
+8AyrLyoqSsuXL1doaKgcHR118uRJDR48WF5eXun2HPHx8erVq5eGDBkiT09Pmc1mjRw5UtOmTVPv
+3r1Tta4FCxaoRo0acnJySrf6EtZboUIFde3aVZI0ffp0rVq1Sh06dNCsWbPk5+eX6nW6u7tr3bp1
++vDDDyVJZrNZBw4csPw9YfqL6Isvvkj3dW7btk23bt1ShQoV0n3dtkjP7fRppGafj4qK0ujRozV/
+/nzly5dPsbGxev/991W0aFHVqlUrTc9/8OBB/fnnn6pdu3aqljt69KgmT56sBQsWpPv+mRrFixdX
+cHCw5WLKyya5Y7qtF1uSU7p0aZUuXTqdqswYCfvwl19+qapVq0p6eDFt1KhR6fohfvbs2cqWLVu6
+rS89Pas2eFrFihVTcHCwJOn06dPq3r27vvnmG5UqVeqZ1hEREaEiRYqoT58+z/R5kXEIeZls3Lhx
+2rNnj+Lj49WxY0dL79aUKVMOj2C5AAAb/klEQVSUJUsWeXh4qH///po+fbqcnJz06quvysHBQVOm
+TJGjo6Ny5cqliRMnaseOHQoKCtLNmzf1xRdfKCIiQkFBQbK3t1eFChU0cOBA7d+/XyNHjpSTk5Oy
+ZMmi//73v/rnn3+STLt+/bolhN6/f19ff/21ChUq9NSvtXr16lq/fr1atGih8PBwNWnSRLt27ZL0
+8OBSsGBBubi4yNvbW6tWrUqyfFRUlD7++GOtWLFCK1eu1KJFi2RnZ6eSJUtqxIgRWrFihXbs2KGY
+mBgdP35cvXv31k8//aSIiAiNHz9eZcqUUd++fRUdHa24uDj16tVLb731lmX9N2/e1N27d3Xv3j05
+OjqqaNGilg8Df//9t4YPHy6TyaRs2bJpzJgxluU2bdqkn376SePGjZMkDR48WPXq1VPOnDn1zTff
+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
+N2XLlk0HDx7UmTNnrB7vChUqpODgYAUHB6tcuXJq1aqVLly4oJiYGMt3rq9evarChQsrLi5OmzZt
+0r1791S2bFmFh4fr/v37unTpknr06GGpZejQoTp9+rS2bNli9fj5pG0hs6V0TJest7f05GPki6BG
+jRo6f/68ZR+WHp4DE/Yla9vC4x4/r9nC1u01QbFixRQREaHLly9LkiZPnqwLFy6k8tVa96Q2sLZv
+Fi1aVKdOnbIM89u+fbvKlSuXaL2FCxe2bDdbtmyxfDazdk560ueOx50+fVoLFizQ+++/r+zZs+vy
+5csym82Kjo5OdEfYx4+Vye2LyR1/nqdt3M3NTTlz5tSPP/6oBg0apHk9qd32Xgb05GWiatWqqVKl
+SmrTpo3MZrMCAgIkPeya7tSpk3LkyKFcuXKpW7ducnR01KBBg5Q7d261a9dObdu2VbFixdStWzdN
+nz490Rjq7Nmz67PPPlPnzp1lMplUvXp1vfnmm7p69ap69eolV1dXZcmSRWPGjNG+ffuSTMufP7+G
+DRumAgUKqEOHDhoyZIi2bt1qGUb3tK+5Z8+e6t69u6SHw4euXr2a4k07Hpc7d27VqlVLLVq0UKlS
+pdS1a1eNHj1anTp1SnG5ggUL6ptvvtGyZctkb29vGR6SoHnz5jpx4oRatWolFxcX3b9/X4MHD5az
+s7O++OILDRkyRLNnz1aWLFk0YcKEJN+LqVWrlmJjYy1X30aNGqWBAwdaevXatGmj3bt3q2rVqlq+
+fLkiIyN1/vx5eXp6qkWLFho1apTVutu0aaMRI0aoQIEClhsGbNmyRZ6enmrfvr2CgoLUsWNHdejQ
+Qfb29qpfv76cnZ2TXa5du3Zq3bq1SpQoYXUI5+jRozV8+HBNmzZN9vb2ypEjh4YOHSrp4Um/ZcuW
+Cg0NVfXq1S3bbvv27SU9vIV9VFSU5fHj6tevr/Hjxyd7x1J/f3/99ddfluEWY8eOtXxof5wt74kk
+9ezZU4MGDdLPP/8sk8mU5CrqP//8k+jW33379tXgwYM1bNgwmUwm5cyZU6NHj5aLi4tcXFzUtm1b
+VapUSQUKFEi0nsKFC+uTTz6Rq6urnJycrF6tDQoK0po1ayTJst7Zs2crICBA9evX19tvv62hQ4eq
+UaNG6t+/v9zc3NJUy9Oys7PT3Llz9eWXX2rq1KlycnKSl5eXevbsKTs7O7Vp00YBAQEym81q1apV
+ouevWbOmZsyYocDAQNWtWzfJ1egn6d69u86dO2e56Y6U/D7/ww8/WK7Q5s+fX+PHj7fcIMZkMqlT
+p07y8vJK1CuQP39+q/uLtffvypUrGj9+vPLly5fkePEkgwcPVosWLdSjRw/98MMPyW5/j+rYsaM+
+/fRT/f7773r99dclPdznsmXLprZt26pKlSpq27athg0bpipVqqT4/F988YW6d+8ue3t7y420AgIC
+1KNHDxUqVEiBgYEaPny4/P399d5771nez0fvnmoymTRq1Ch1795dc+fO1cqVKxMdPwsWLJjitpDZ
+kjumJ/QaWWtvSU88Rr4ITCaT5syZYzmWOzo6ysXFRTNmzLAMabO2LTzu8fPak6R2e82aNasGDRqk
+bt26ycnJSWXKlEnzqIvHPakNrJ0bXFxc1K9fP3Xt2lV2dnaqUqWKqlatmugiYr169fTdd9+pXbt2
+8vT0VK5cuSRZPyeZTKYUP3dI/3cOiouLU3x8vL788kvLzcG8vLwsx73HL6A8eqxMbl9M7vyXmdu4
+tXOur6+vNmzYoOzZs6d5vWk9VhqZyZxZ4ygAAzGbzfrggw80bNgwFSlSJLPLAQDgqXBes+7q1asK
+CwuTr6+vLly4oE6dOqX5N2TxUP/+/dWsWbMnfsUBqcNwTeApRUVFqUWLFvLy8uJECAB44XFeS162
+bNn066+/qnXr1urRo4cGDhyY2SW9sO7evavWrVsre/bsBLwMQE8eAAAAABgIPXkAAAAAYCCEPAAA
+AAAwEEIeAAAAABgIIQ8A8FJ57733Et0SPSQkRI0bN040j6+vr95///10+80uAACeJUIeAOClUrt2
+7UQh76+//lJsbKzlB5nPnj2r69eva/78+XrllVcyq0wAANKMkAcAeKnUqVNHf/31lyQpPj5ex44d
+U6NGjSzTtm7dKi8vL/n4+OjUqVNasWKFPv/8c3322Wdq1qyZevbsqYQbUwcHB6t9+/Zq06aNBg4c
+qDt37igqKkqNGzdWnz59NHPmTHl7eysyMtLy/P7+/vr777+f/QsHALw0CHkAgJdK5cqVdfLkSV27
+dk0HDhxQ6dKlVb16dUvI++uvv1SnTp1Ey+zevVtfffWVVqxYoSNHjujw4cPat2+ffv/9d4WEhGjZ
+smVydXXVt99+K0mKiIhQjx491L17dzVv3lw//PCDJOno0aPKkSOHXnvttWf7ogEALxVCHgDgpeLk
+5KSqVatq27Zt+uuvv1SjRg1VqVJFu3btkiSFhYWpdu3aiZapUKGCnJ2dZTKZ9Oqrr+ratWsKCwvT
+6dOn1bFjRwUGBmrXrl06d+6cJClnzpwqXry4JKlVq1b66aefZDab9euvv6pFixbP9gUDAF46Dpld
+AAAAz1qdOnW0Y8cOHT9+XEOHDlXWrFnl7u6uTZs2yd3dXXnz5k00v729faLHZrNZTk5O8vb21pdf
+fpnob1FRUXJ0dLQ8fuWVV1SiRAnt2rVLmzdvVnBwcMa9MAAARE8eAOAlVKdOHW3fvl2XLl1SsWLF
+JEk1atTQnDlzkvTiJady5cravHmzYmNjJT28S+fu3butztumTRtNmDBBpUuXVrZs2dLnRQAAkAxC
+HgDgpVO4cGHduXNH5cqVs0yrWbOmtm/fnuT7eMkpX768OnTooMDAQLVr107bt29XqVKlrM5bp04d
+nT59Wq1atUqX+gEASInJnHCLMAAAkCH27dun0aNHa8mSJZldCgDgJcB38gAAyEDDhw/X3r17NW7c
+uMwuBQDwkqAnDwAAAAAMhO/kAQAAAICBEPIAAAAAwEAIeQAAAABgIIQ8AAAAADAQQh4AAAAAGAgh
+DwAAAAAM5P8BR43hymQiWyAAAAAASUVORK5CYII=
 "
 >
 </div>
@@ -15471,6 +15543,17 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Winery is the place or company that produce wine.</p>
+<p>Since a large percent of popular wines are from the California, we can have a reasonable guess that most of the wineries in this popular list are in the California. After google the top 10 wineries, I found that 6 of them are from CA, 2 from Washington, and 2 from France. And I just can't help to think that what make the California the best place to produce wine?</p>
+<p><a href="https://www.library.ucdavis.edu/news/short-history-wine-making-california/">https://www.library.ucdavis.edu/news/short-history-wine-making-california/</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Now let's make some predictions!</p>
 
 </div>
@@ -15480,18 +15563,19 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Random-Forest-Regression">Random Forest Regression<a class="anchor-link" href="#Random-Forest-Regression">&#182;</a></h1><p>Before we begin applying any machine learning models, we're going to need to one-hot encode our data. This means converting all our categorical variables to binary ("dummy") variables, so that our algorithms know what to do with them! Luckily, this can be done in a single line.</p>
+<h2 id="4.-Machine-Learning">4. Machine Learning<a class="anchor-link" href="#4.-Machine-Learning">&#182;</a></h2><h3 id="4.1-Random-Forest-Regression">4.1 Random Forest Regression<a class="anchor-link" href="#4.1-Random-Forest-Regression">&#182;</a></h3><p>Before we apply any machine learning models, we're going to need to process our data further. Because we are doing regression analysis, we need to ensure there is no multicollinearity between variables, as its presence may throw off our predictions. It is a reasonable (if not blindingly obvious) assumption that our location variables are perfectly correlated with one another. As such, we will choose to drop the Country, Region 1, and Winery columns. A wine's country of origin likely does not provide enough information to significantly improve our model. On the other hand, there may be too many distinct regions and wineries for those columns to be of much use. Settling with Province seems like a healthy compromise.</p>
+<p>Next, we need to one-hot encode our data. This means converting all our categorical variables to binary ("dummy") variables, so that our algorithms know what to do with them! Luckily, this can be done in a single line.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># drop winery for now (too many values)</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;winery&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop collinear variables</span>
+<span class="n">wine_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;region_1&#39;</span><span class="p">,</span> <span class="s1">&#39;winery&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># One-hot encode categorial variables</span>
 <span class="n">encoded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">wine_data</span><span class="p">)</span>
@@ -15508,7 +15592,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[0]:</div>
+<div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -15534,13 +15618,13 @@ WMYIsJOfb58AAAAASUVORK5CYII=
       <th>points</th>
       <th>price</th>
       <th>vintage</th>
-      <th>country_Argentina</th>
-      <th>country_Australia</th>
-      <th>country_Canada</th>
-      <th>country_France</th>
-      <th>country_Italy</th>
-      <th>country_Spain</th>
-      <th>country_US</th>
+      <th>province_Alsace</th>
+      <th>province_Andalucia</th>
+      <th>province_Arizona</th>
+      <th>province_Australia Other</th>
+      <th>province_Beaujolais</th>
+      <th>province_Bordeaux</th>
+      <th>province_British Columbia</th>
       <th>...</th>
       <th>variety_Vitovska</th>
       <th>variety_Viura</th>
@@ -15566,7 +15650,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>1</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -15590,7 +15674,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>1</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -15614,7 +15698,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>1</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -15637,7 +15721,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>1</td>
+      <td>0</td>
       <td>0</td>
       <td>...</td>
       <td>0</td>
@@ -15660,7 +15744,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>1</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>...</td>
@@ -15677,7 +15761,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
     </tr>
   </tbody>
 </table>
-<p>5 rows × 1766 columns</p>
+<p>5 rows × 565 columns</p>
 </div>
 </div>
 
@@ -15698,14 +15782,35 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate average score</span>
 <span class="n">baseline</span> <span class="o">=</span> <span class="n">wine_data</span><span class="p">[</span><span class="s1">&#39;points&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">baseline</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>88.50293241624958</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -15714,7 +15819,7 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now let's try using a random forest to predict wine ratings. Random forests are known for their high accuracy, and serve as a fairly efficient way to analyze large datasets such as ours. We'll start with the default 75:25 split, with 75% of our data being used for training, and the other 25% for testing, and 100 trees. We can fine-tune these later if necessary.</p>
+<p>Lastly, we need to split the data into training and testing sets. We'll start with the default 75:25 split, with 75% of our data being used for training, and the other 25% for testing. We can fine-tune these later if necessary.</p>
 
 </div>
 </div>
@@ -15730,47 +15835,6 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 
 <span class="c1"># Split data 75:25 into train and test sets</span>
 <span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
-
-<span class="c1"># Train</span>
-<span class="n">regr</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># test</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
-<span class="n">err</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Have a general idea about how the data looks like</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">province</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">region_1</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">variety</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">winery</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
-<span class="n">count</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;country&#39;</span><span class="p">:</span><span class="n">wine_data</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">:</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">province</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">:</span><span class="n">wine_data</span><span class="o">.</span><span class="n">region_1</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-        <span class="s1">&#39;variety&#39;</span><span class="p">:</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">variety</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;winery&#39;</span><span class="p">:</span><span class="n">wine_data</span><span class="o">.</span><span class="n">winery</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -15782,84 +15846,42 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Plot-Correlation-Heatmap"><strong>Plot Correlation Heatmap</strong><a class="anchor-link" href="#Plot-Correlation-Heatmap">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Since there are too many varieties and wineries. And a lot of varieties and wineries only has several reviews which has no meaning in statistics. In order to effectively train our machine learning model, we will find top ten value in each variable and group the rest of values as ''other".</p>
+<p>We're finally ready to start. First, we'll use the most straightforward, time-tested approach: linear regression. We  have no reason to suspect that the relationship between the independent variables and a wine's score is nonlinear, so this is a pretty safe choice.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a map to replace the categorical variable with their ranks. Rank 1 represents the highest freqency.</span>
-<span class="n">wine_data</span><span class="o">.</span><span class="n">variety</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="n">top</span> <span class="o">=</span> <span class="mi">50</span>
-
-<span class="n">country</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[:]</span>
-<span class="n">country</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span><span class="n">index</span> <span class="o">=</span> <span class="n">country</span><span class="p">)</span>
-
-<span class="n">prov</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">province</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">top</span><span class="p">]</span>
-<span class="n">prov</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">top</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">index</span> <span class="o">=</span> <span class="n">prov</span><span class="p">)</span>
-
-<span class="n">region</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">region_1</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">top</span><span class="p">]</span>
-<span class="n">region</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">top</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">index</span> <span class="o">=</span> <span class="n">region</span><span class="p">)</span>
-
-<span class="n">variety</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">variety</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">top</span><span class="p">]</span>
-<span class="n">variety</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">top</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">index</span> <span class="o">=</span> <span class="n">variety</span><span class="p">)</span>
-
-<span class="n">winery</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">winery</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">top</span><span class="p">]</span>
-<span class="n">winery</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">top</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">index</span> <span class="o">=</span> <span class="n">winery</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Train linear regression model</span>
+<span class="n">lin_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
+<span class="n">lin_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">copy</span> <span class="o">=</span> <span class="n">wine_data</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;country&#39;</span><span class="p">:</span><span class="n">country</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">:</span><span class="n">prov</span><span class="p">,</span><span class="s1">&#39;region_1&#39;</span><span class="p">:</span><span class="n">region</span><span class="p">,</span> <span class="s1">&#39;variety&#39;</span><span class="p">:</span><span class="n">variety</span><span class="p">,</span> <span class="s1">&#39;winery&#39;</span><span class="p">:</span><span class="n">winery</span><span class="p">})</span>
-<span class="n">copy</span><span class="p">[</span><span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">copy</span><span class="p">[</span><span class="s1">&#39;province&#39;</span><span class="p">],</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">copy</span><span class="p">[</span><span class="s1">&#39;region_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">copy</span><span class="p">[</span><span class="s1">&#39;region_1&#39;</span><span class="p">],</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">copy</span><span class="p">[</span><span class="s1">&#39;variety&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">copy</span><span class="p">[</span><span class="s1">&#39;variety&#39;</span><span class="p">],</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">copy</span><span class="p">[</span><span class="s1">&#39;winery&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">copy</span><span class="p">[</span><span class="s1">&#39;winery&#39;</span><span class="p">],</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="output_wrapper">
+<div class="output">
 
-<span class="n">numeric_data</span> <span class="o">=</span>  <span class="n">copy</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;description&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">numeric_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
 
-</div>
-</div>
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[18]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.2563453613393958</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot correlation heatmap</span>
-<span class="n">wine_corr</span> <span class="o">=</span> <span class="n">numeric_data</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">wine_corr</span><span class="p">,</span> <span class="n">cbar</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span> <span class="s1">&#39;.2f&#39;</span><span class="p">,</span><span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span>
-           <span class="n">cmap</span><span class="o">=</span> <span class="s1">&#39;coolwarm&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Correlation between features&#39;</span><span class="p">);</span>
-</pre></div>
-
-</div>
 </div>
 </div>
 
@@ -15868,7 +15890,116 @@ WMYIsJOfb58AAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Correlation graph above visualizes how different features correlated with each other. We can see that country and province are highly correlated. And the linearly correlated features contain redundant information. In order to increase efficiency and avoid bias, we only need one features to train the prediction model.</p>
+<p>This produces a model with a miserably low R-squared of 0.26, which implies our assumption of a linear model is off base. This may also be due to extreme outliers in the price and vintage, and in future analyses they should be removed from the dataset for more accurate predictions. For now, let's move on to the next method.</p>
+<p>Let's try using a random forest to predict the ratings. Random forests are known for their high accuracy, and serve as a fairly efficient way to analyze large datasets such as ours. We initially started with 100 trees, but for the sake of everyone's time and sanity we have decreased this to 20.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Train random forest model</span>
+<span class="n">rf_regr</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">rf_regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[19]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>RandomForestRegressor(bootstrap=True, criterion=&#39;mse&#39;, max_depth=None,
+           max_features=&#39;auto&#39;, max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=20, n_jobs=None,
+           oob_score=False, random_state=None, verbose=0, warm_start=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see how well our model does with our test set. We'll measure its accuracy with mean squared error and R squared, and compare these metrics with our baseline prediction.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Test random forest model</span>
+<span class="n">rf_pred</span> <span class="o">=</span> <span class="n">rf_regr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
+
+<span class="c1"># Calculate error</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">rf_pred</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">rf_regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_features</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+
+
+<span class="c1"># Calculate baseline error</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">rf_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">baseline</span><span class="p">)</span>
+<span class="n">base_mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+<span class="n">base_r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Random Forest MSE:&#39;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Random Forest R-squared:&#39;</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Baseline MSE:&#39;</span><span class="p">,</span> <span class="n">base_mse</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Baseline R-squared:&#39;</span><span class="p">,</span> <span class="n">base_r2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Random Forest MSE: 5.695680097405051
+Random Forest R-squared: 0.39143061775254456
+Baseline MSE: 9.359131300745545
+Baseline R-squared: -1.1529132204479708e-07
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This performs significantly better than both the linear regression model and our baseline!</p>
 
 </div>
 </div>
